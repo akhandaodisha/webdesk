@@ -2,6 +2,7 @@
 
 #ignore all
 *
+!/.gitignore
 
 # # compiled output
 # /dist
