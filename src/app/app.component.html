@@ -1,0 +1,6 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-menu *ngIf="showSite"></app-menu>
+<app-staticbg *ngIf="showSite"></app-staticbg>
+<router-outlet *ngIf="showSite"></router-outlet>
+<app-footer *ngIf="showSite"></app-footer>
+<app-under-construction-page *ngIf="!showSite"></app-under-construction-page>

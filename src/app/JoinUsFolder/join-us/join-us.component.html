@@ -1,0 +1,63 @@
+<mat-card>
+  <mat-card-title *ngIf="!success">{{pageTitle}}</mat-card-title>
+  <mat-card-content *ngIf="!success">
+    <form [formGroup]="joinForm" (ngSubmit)="submitForm()" autocomplete="off">
+      <mat-form-field>
+        <input matInput placeholder="{{formConstants.name.label}}" formControlName="name">
+        <mat-hint>{{formConstants.name.hint}}</mat-hint>
+        <mat-error *ngIf="joinForm.controls['name'].errors?.required">
+          <strong>{{formConstants.name.requiredError}}</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="datepicker-field">
+        <input matInput readonly [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="{{formDate.date.label}}"  formControlName="dob">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker [touchUi]="isMobile" #picker></mat-datepicker>
+        <mat-error *ngIf="joinForm.controls['dob'].errors?.required">
+          <strong>{{formDate.date.requiredError}}</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="{{formConstants.email.label}}" formControlName="email">
+        <mat-hint>{{formConstants.email.hint}}</mat-hint>
+        <mat-error *ngIf="joinForm.controls['email'].errors?.required && joinForm.controls['email'].errors?.email">
+          <strong>{{formConstants.email.patternError}}</strong>
+        </mat-error>
+        <mat-error *ngIf="joinForm.controls['email'].errors?.required">
+          <strong>{{formConstants.email.requiredError}}</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="{{formConstants.phone.label}}" formControlName="phone">
+        <mat-hint>{{formConstants.phone.hint}}</mat-hint>
+        <mat-error *ngIf="joinForm.controls['phone'].errors?.pattern">
+          <strong>{{formConstants.phone.patternError}}</strong>
+        </mat-error>
+        <mat-error *ngIf="joinForm.controls['phone'].errors?.required">
+          <strong>{{formConstants.phone.requiredError}}</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-radio-group formControlName="skill">
+        <label>ଆପଣଙ୍କ ଦକ୍ଷତା</label>
+        <mat-radio-button [value]="skillName" *ngFor="let skillName of skillList" color="primary">{{ skillName }}</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field>
+        <textarea matInput placeholder="{{formConstants.message.label}}" formControlName="message"></textarea>
+        <mat-error *ngIf="joinForm.controls['message'].errors?.required">
+          <strong>{{formConstants.message.requiredError}}</strong>
+        </mat-error>
+        <mat-error *ngIf="joinForm.controls['message'].errors?.minlength">
+          <strong>{{formConstants.message.minError}}</strong>
+        </mat-error>
+        <mat-error *ngIf="joinForm.controls['message'].errors?.maxlength">
+          <strong>{{formConstants.message.maxError}}</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!joinForm.valid">{{joinText}}</button>
+    </form>
+  </mat-card-content>
+  <mat-card-content *ngIf="success">
+    <fa-icon [icon]="successData.iconName" size="2x" class="{{successData.class}}"></fa-icon>
+    <strong>{{successData.content}}</strong>
+  </mat-card-content>
+</mat-card>
